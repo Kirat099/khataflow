@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { ArrowDownLeft, ArrowUpRight, Plus, Search, Wallet, TrendingUp, Sprout, Users, Download, X, HandCoins, ReceiptText, LayoutDashboard, BookOpen, UserRound, ChevronRight } from "lucide-react";
+import { useMemo, useState, type FormEvent } from "react";
+import { ArrowDownLeft, ArrowUpRight, Plus, Search, Wallet, Sprout, Users, Download, X, HandCoins, ReceiptText, LayoutDashboard, BookOpen, UserRound, ChevronRight } from "lucide-react";
 
 type Person = { id: string; name: string; phone?: string; note?: string; createdAt: string };
 type EntryType = "income" | "expense" | "lent" | "borrowed" | "repayment_in" | "repayment_out";
@@ -60,7 +60,7 @@ export default function App() {
   }).sort((a,b)=>b.date.localeCompare(a.date));
   const personEntries = selectedPerson ? filtered.filter(e=>e.personId===selectedPerson) : [];
   function resetEntry() { setTitle(""); setAmount(""); setNote(""); setPersonId(""); setType("income"); setCategory("Farming"); setDate(today()); }
-  function addEntry(e: React.FormEvent) {
+  function addEntry(e: FormEvent) {
     e.preventDefault();
     const value = Number(amount);
     if (!title.trim() || !Number.isFinite(value) || value <= 0) return;
