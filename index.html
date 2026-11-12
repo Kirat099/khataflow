@@ -6,9 +6,33 @@
     <meta name="theme-color" content="#101713" />
     <meta name="description" content="KhataFlow — simple household and business accounts." />
     <title>KhataFlow</title>
+    <style>
+      body { margin: 0; background: #101713; color: #edf4ed; font: 16px system-ui, sans-serif; }
+      #boot-status { max-width: 520px; margin: 18vh auto; padding: 24px; }
+      #boot-status h1 { color: #b8e6a4; }
+      #boot-status p { line-height: 1.5; color: #c1cbc2; }
+      #boot-error { white-space: pre-wrap; overflow-wrap: anywhere; color: #ffb4a2; font-size: 13px; }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main id="boot-status">
+        <h1>KhataFlow is starting…</h1>
+        <p>If this message stays here, the app's JavaScript did not start. This diagnostic screen will help identify why.</p>
+        <p id="boot-error"></p>
+      </main>
+    </div>
+    <script>
+      window.addEventListener("error", function (event) {
+        var box = document.getElementById("boot-error");
+        if (box) box.textContent = "Loading error: " + (event.message || "A script or asset failed to load.") +
+          (event.filename ? "\\nFile: " + event.filename : "");
+      });
+      window.addEventListener("unhandledrejection", function (event) {
+        var box = document.getElementById("boot-error");
+        if (box) box.textContent = "App error: " + String(event.reason);
+      });
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
