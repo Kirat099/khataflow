@@ -73,6 +73,7 @@ export default function App() {
     const value = Number(amount);
     if (!title.trim() || !Number.isFinite(value) || value <= 0) return;
     if (needsPerson && !personId) return;
+    if (attachmentFiles.some(file=>file.size>10*1024*1024)) { alert("Each attachment must be 10 MB or smaller."); return; }
     if (type === "repayment_in" && personBalance(personId).lent < value) { alert("Repayment is greater than this person's outstanding amount owed to you."); return; }
     if (type === "repayment_out" && personBalance(personId).borrowed < value) { alert("Repayment is greater than your outstanding amount owed to this person."); return; }
     const attachments: AttachmentMeta[] = attachmentFiles.map(file=>({id:crypto.randomUUID(),name:file.name,type:file.type || "application/octet-stream",size:file.size}));
