@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { ArrowDownLeft, ArrowUpRight, Plus, Search, Wallet, Sprout, Users, Download, X, HandCoins, ReceiptText, LayoutDashboard, BookOpen, UserRound, ChevronRight, BarChart3 } from "lucide-react";
+import { ArrowDownLeft, ArrowUpRight, Plus, Search, Wallet, Sprout, Users, Download, Upload, X, HandCoins, ReceiptText, LayoutDashboard, BookOpen, UserRound, ChevronRight, BarChart3 } from "lucide-react";
 
 type Person = { id: string; name: string; phone?: string; note?: string; createdAt: string };
 type EntryType = "income" | "expense" | "shared_expense" | "lent" | "borrowed" | "repayment_in" | "repayment_out" | "shared_repayment_in";
@@ -105,9 +105,43 @@ export default function App() {
     const blob = new Blob([JSON.stringify({ app:"KhataFlow", version:3, exportedAt:new Date().toISOString(), people, entries, attachments },null,2)],{type:"application/json"});
     const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="khataflow-backup.json"; a.click(); URL.revokeObjectURL(url);
   }
+  async function importData(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    try {
+      const backup = JSON.parse(await file.text()) as { app?: string; people?: Person[]; entries?: Entry[]; attachments?: { meta: AttachmentMeta; dataUrl: string }[] };
+      const validTypes: EntryType[] = ["income","expense","shared_expense","lent","borrowed","repayment_in","repayment_out","shared_repayment_in"];
+      if (backup.app !== "KhataFlow" || !Array.isArray(backup.people) || !Array.isArray(backup.entries)) {
+        alert("This file is not a valid KhataFlow backup.");
+        return;
+      }
+      const validPeople = backup.people.every(p => p && typeof p.id === "string" && typeof p.name === "string");
+      const validEntries = backup.entries.every(e => e && typeof e.id === "string" && typeof e.title === "string" && typeof e.category === "string" && validTypes.includes(e.type) && Number.isFinite(e.amount) && e.amount > 0 && typeof e.date === "string");
+      if (!validPeople || !validEntries || (backup.attachments !== undefined && !Array.isArray(backup.attachments))) {
+        alert("The backup contains invalid or incomplete records. Nothing was imported.");
+        return;
+      }
+      if (!window.confirm(`Import ${backup.entries.length} transactions and ${backup.people.length} people? This will replace the records currently saved on this device.`)) return;
+      for (const item of backup.attachments ?? []) {
+        if (!item?.meta || typeof item.meta.id !== "string" || typeof item.dataUrl !== "string" || !item.dataUrl.startsWith("data:")) continue;
+        const blob = await (await fetch(item.dataUrl)).blob();
+        await attachmentStore("readwrite", store => store.put({ ...item.meta, blob }));
+      }
+      localStorage.setItem(PEOPLE_KEY, JSON.stringify(backup.people));
+      localStorage.setItem(ENTRIES_KEY, JSON.stringify(backup.entries));
+      setPeople(backup.people);
+      setEntries(backup.entries);
+      setSelectedPerson(null);
+      setPage("home");
+      alert("Backup imported successfully.");
+    } catch {
+      alert("Could not import this backup. Please check that it is a valid KhataFlow JSON file.");
+    }
+  }
   const selected = people.find(p=>p.id===selectedPerson);
   return <main className="shell">
-    <header className="topbar"><a className="brand" href="#" onClick={e=>{e.preventDefault();setPage("home");setSelectedPerson(null)}}><span className="brand-mark">K</span><span>khataflow<small>HOUSEHOLD ACCOUNTS</small></span></a><button className="icon-btn" onClick={exportData} aria-label="Export backup"><Download size={18}/></button></header>
+    <header className="topbar"><a className="brand" href="#" onClick={e=>{e.preventDefault();setPage("home");setSelectedPerson(null)}}><span className="brand-mark">K</span><span>khataflow<small>HOUSEHOLD ACCOUNTS</small></span></a><div className="backup-actions"><button className="icon-btn" onClick={exportData} aria-label="Export backup" title="Export backup"><Download size={18}/></button><button className="icon-btn" onClick={()=>document.getElementById("backup-import")?.click()} aria-label="Import backup" title="Import backup"><Upload size={18}/></button><input id="backup-import" type="file" accept="application/json,.json" hidden onChange={importData}/></div></header>
     <nav className="nav-tabs">
       <button className={page==="home"?"active":""} onClick={()=>{setPage("home");setSelectedPerson(null)}}><LayoutDashboard size={16}/> Overview</button>
       <button className={page==="activity"?"active":""} onClick={()=>{setPage("activity");setSelectedPerson(null)}}><ReceiptText size={16}/> Activity</button>
