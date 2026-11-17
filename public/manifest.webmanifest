@@ -9,8 +9,9 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "./icons/khataflow-180.png",
-      "sizes": "180x180",
+      "src": "./icons/",
+      "6BA22732-0BAD-4D48-957E-2ACC86979CB8.png
+      sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
     },
