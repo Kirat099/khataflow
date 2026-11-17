@@ -231,3 +231,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  .toolbar{background:#fff}
  .ledger-actions{background:#fff}
 }
+
+
+/* Monthly reports */
+.report-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 24px}
+.report-card{padding:15px;border:1px solid #e7e7e7;border-radius:13px;background:#fff;min-width:0}
+.report-card small{display:block;color:#777;font-size:9px;letter-spacing:1px;line-height:1.4;min-height:25px}
+.report-card strong{display:block;color:#111;font:700 19px Manrope;margin-top:8px;overflow-wrap:anywhere}
+.report-breakdown{display:grid;gap:16px;padding:16px;border:1px solid #e7e7e7;border-radius:14px;background:#fff}
+.report-line>div{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.report-line b{font-size:12px;color:#222}
+.report-line strong{font:700 12px Manrope;color:#111}
+.report-line>span{display:block;height:7px;background:#eee;border-radius:20px;overflow:hidden;margin:8px 0 5px}
+.report-line i{display:block;height:100%;background:#222;border-radius:20px}
+.report-line>small{font-size:9px;color:#888}
+@media(max-width:650px){.report-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.report-card{padding:12px}.report-card strong{font-size:17px}.report-breakdown{padding:13px}}
