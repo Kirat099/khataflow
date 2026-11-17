@@ -246,3 +246,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .report-line i{display:block;height:100%;background:#222;border-radius:20px}
 .report-line>small{font-size:9px;color:#888}
 @media(max-width:650px){.report-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.report-card{padding:12px}.report-card strong{font-size:17px}.report-breakdown{padding:13px}}
+
+
+/* Incoming money batches */
+.money-batches{margin:22px 0 30px}.batch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.batch-card{border:1px solid #e5e5e5;border-radius:14px;padding:15px;background:#fff;display:grid;gap:8px}.batch-card>div{display:flex;justify-content:space-between;align-items:center;gap:8px}.batch-card strong{font-size:14px}.batch-card b{font-size:22px;letter-spacing:-.5px}.batch-card small{font-size:12px;color:#777}.batch-track{height:5px;border-radius:8px;background:#eee;overflow:hidden}.batch-track span{display:block;height:100%;background:#222;border-radius:8px}
