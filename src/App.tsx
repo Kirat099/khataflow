@@ -27,6 +27,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [reportMonth, setReportMonth] = useState(today().slice(0,7));
   const [showEntry, setShowEntry] = useState(false);
+  const [editingEntryId, setEditingEntryId] = useState<string|null>(null);
   const [showPerson, setShowPerson] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<string|null>(null);
   const [type, setType] = useState<EntryType>("income");
@@ -78,7 +79,9 @@ export default function App() {
   const reportTotals = reportEntries.reduce((a,e)=>{ if(e.type==="income") a.income+=e.amount; if(e.type==="expense"||e.type==="shared_expense") a.expense+=e.amount; if(e.type==="lent") a.lent+=e.amount; if(e.type==="borrowed") a.borrowed+=e.amount; if(e.type==="repayment_in") a.repaidIn+=e.amount; if(e.type==="repayment_out") a.repaidOut+=e.amount; a.cash+=signed(e.type)*e.amount; return a; },{income:0,expense:0,lent:0,borrowed:0,repaidIn:0,repaidOut:0,cash:0});
   const expenseBreakdown = Object.entries(reportEntries.filter(e=>e.type==="expense"||e.type==="shared_expense").reduce((a,e)=>{a[e.category]=(a[e.category]||0)+e.amount;return a;},{} as Record<string,number>)).sort((a,b)=>b[1]-a[1]);
   function exportReportCsv() { const rows=[["Date","Description","Type","Category","Amount (INR)","Person","Note"],...reportEntries.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>[e.date,e.title,labels[e.type],e.category,String(e.amount),people.find(p=>p.id===e.personId)?.name||"",e.note||""])]; const csv=rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\\n"); const url=URL.createObjectURL(new Blob(["\\ufeff"+csv],{type:"text/csv;charset=utf-8"})); const a=document.createElement("a");a.href=url;a.download="khataflow-report-"+reportMonth+".csv";a.click();URL.revokeObjectURL(url); }
-  function resetEntry() { setTitle(""); setAmount(""); setNote(""); setPersonId(""); setType("income"); setCategory("Farming"); setDate(today()); setAttachmentFiles([]); setShares([]); setSourceEntryId(""); }
+  function resetEntry() { setTitle(""); setAmount(""); setNote(""); setPersonId(""); setType("income"); setCategory("Farming"); setDate(today()); setAttachmentFiles([]); setShares([]); setSourceEntryId(""); setEditingEntryId(null); }
+  function editEntry(entry: Entry) { setEditingEntryId(entry.id); setTitle(entry.title); setAmount(String(entry.amount)); setNote(entry.note ?? ""); setPersonId(entry.personId ?? ""); setType(entry.type); setCategory(entry.category); setDate(entry.date); setShares(entry.shares ?? []); setSourceEntryId(entry.sourceEntryId ?? ""); setAttachmentFiles([]); setShowEntry(true); }
+  function deleteEntry(entry: Entry) { if(!window.confirm(`Delete ${entry.title} (${money(entry.amount)})? This cannot be undone.`)) return; saveEntries(entries.filter(item=>item.id!==entry.id)); if(editingEntryId===entry.id) { resetEntry(); setShowEntry(false); } }
   async function addEntry(e: FormEvent) {
     e.preventDefault();
     const value = Number(amount);
