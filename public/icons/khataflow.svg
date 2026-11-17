@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <rect x="4" y="4" width="172" height="172" rx="38" fill="#fff" stroke="#e5e5e5" stroke-width="2"/>
+  <path d="M35 74 90 34l55 40" fill="none" stroke="#111" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M120 63V43q0-5 5-5h7q5 0 5 5v23" fill="#111"/>
+  <rect x="44" y="68" width="92" height="64" rx="12" fill="#111"/>
+  <path d="M57 79h56" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <text x="90" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="46" font-weight="700" fill="#fff">₹</text>
+  <rect x="24" y="112" width="15" height="33" rx="4" fill="#111"/>
+  <rect x="45" y="105" width="15" height="40" rx="4" fill="#111"/>
+  <rect x="66" y="98" width="15" height="47" rx="4" fill="#111"/>
+  <path d="M20 151c27-18 56-13 83-13 23 0 40-7 57-20" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+</svg>
