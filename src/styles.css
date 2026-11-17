@@ -86,3 +86,81 @@ button:active{transform:scale(.985)}
   .nav-tabs{position:sticky;top:0;z-index:3;background:#101713ed;backdrop-filter:blur(12px)}
   .modal-backdrop{padding:22px}
 }
+
+
+/* KHATAFLOW colour refresh — richer midnight palette with distinct financial accents */
+:root{color-scheme:dark;background:#101321;color:#f3f4fb}
+body{background:radial-gradient(ellipse at 12% 0%,#252b50 0,transparent 36%),radial-gradient(ellipse at 100% 20%,#123d42 0,transparent 30%),#101321}
+.topbar{border-color:#30344b}
+.brand{color:#f5f5ff}
+.brand small{color:#9da5c1}
+.brand-mark{background:linear-gradient(135deg,#9b8cff,#61d6c7);color:#101321;box-shadow:0 6px 22px #7466dd40}
+.nav-tabs{border-color:#30344b}
+.nav-tabs button{color:#a3a9c1}
+.nav-tabs button.active{background:#292c4b;color:#d9d5ff;box-shadow:inset 0 0 0 1px #7066c9}
+.nav-tabs button span{background:#3b3c60;color:#d9d5ff}
+.eyebrow{color:#72d7c6}
+.welcome h1 span,.page-title h1 span{color:#9b8cff}
+.date-chip,.icon-btn,.filter-btn{border-color:#3a3e59;background:#1a1e31;color:#cbd0e7}
+.balance-card{background:linear-gradient(130deg,#285b69 0%,#34417a 58%,#473d78 100%);border-color:#52649a}
+.balance-card .card-label{color:#d4f8f0}
+.balance-card p{color:#c4d8ed}
+.balance-orb{border-color:#ffffff20;box-shadow:0 0 0 18px #ffffff0b,0 0 0 38px #ffffff08}
+.stat-card{background:linear-gradient(145deg,#1d2237,#191e30);border-color:#373d59}
+.stat-card:nth-child(2){background:linear-gradient(145deg,#173b35,#1b2c32);border-color:#2e6259}
+.stat-card:nth-child(3){background:linear-gradient(145deg,#452b38,#2b2438);border-color:#694458}
+.stat-card>p{color:#aeb5ce}
+.stat-card>strong{color:#f4f2ff}
+.stat-card small{color:#a5adc4}
+.income{background:#17483d;color:#75e2c1}
+.expense{background:#532e3c;color:#ff9eae}
+.loan{background:#343264;color:#b8a8ff}
+.debt{background:#584321;color:#ffd17e}
+.section-head h2,.modal h2{color:#f1f2fc}
+.primary-btn{background:linear-gradient(120deg,#a99aff,#6edcc9);color:#111528;box-shadow:0 5px 16px #7c70d633}
+.quick-grid button{background:linear-gradient(145deg,#20263c,#191e30);border-color:#373d59}
+.quick-grid button:nth-child(1) .quick-icon{background:#19483f;color:#79e1c3}
+.quick-grid button:nth-child(2) .quick-icon{background:#542f3e;color:#ff9eae}
+.quick-grid button:nth-child(3) .quick-icon{background:#363267;color:#b8a8ff}
+.quick-grid button:nth-child(4) .quick-icon{background:#5a4524;color:#ffd17e}
+.quick-grid button:nth-child(5) .quick-icon{background:#24435f;color:#8fd0ff}
+.quick-grid button:nth-child(6) .quick-icon{background:#4a3561;color:#d1a7ff}
+.quick-grid small,.muted{color:#a2aac1}
+.text-btn{color:#a99aff}
+.entries{border-color:#353a54;background:#171c2c}
+.entry{border-color:#30354b}
+.entry-info small{color:#a0a8c0}
+.positive{color:#75e2c1}
+.negative{color:#ff9eae}
+.coming{border-color:#465078}
+.coming-icon{background:#343267;color:#b8a8ff}
+.coming p{color:#a5adc4}
+.search{background:#1a1f32;border-color:#3a3e59;color:#a8b0c9}
+.search input{color:#f3f4fb}
+.person-card{background:linear-gradient(145deg,#20263b,#191e30);border-color:#373d59}
+.avatar{background:#363267;color:#c3b7ff}
+.person-main small,.person-balances small{color:#a4abc2}
+.person-balances b{color:#e8e8fa}
+.empty-panel{border-color:#485071;color:#abb2ca}
+.empty-panel b{color:#f0f0fb}
+.modal{background:#1b2032;border-color:#454b68}
+.modal label{color:#c0c5dc}
+.modal label input,.modal label select,.share-row input,.share-row select{background:#121728;border-color:#414762;color:#f2f2fc}
+.modal label input:focus,.modal label select:focus,.share-row input:focus,.share-row select:focus{border-color:#9b8cff;box-shadow:0 0 0 3px #9b8cff24}
+.ledger-totals div{background:#14192a;border-color:#3a405c}
+.ledger-totals small{color:#a5adc4}
+.secondary-btn{background:#292746;border-color:#5c5592;color:#c7bdff}
+.share-editor{background:#171d30;border-color:#414762}
+.share-editor-head b{color:#f0f0fb}
+.share-editor-head small{color:#a5adc4}
+.share-total{color:#75e2c1}
+.attachment-links button{background:#292746;border-color:#5c5592;color:#c7bdff}
+.selected-files span{background:#14192a;border-color:#414762;color:#d5d8eb}
+.form-hint{color:#ffd17e}
+footer{color:#838ba8}
+footer span{color:#72d7c6}
+@media(max-width:650px){
+ .nav-tabs{background:#111629f5;border-color:#343a55}
+ .toolbar{background:#101321}
+ .ledger-actions{background:#1b2032}
+}
