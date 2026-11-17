@@ -88,16 +88,18 @@ export default function App() {
     if (!title.trim() || !Number.isFinite(value) || value <= 0) return;
     if (needsPerson && !personId) return;
     if (attachmentFiles.some(file=>file.size>10*1024*1024)) { alert("Each attachment must be 10 MB or smaller."); return; }
-    if (type === "repayment_in" && personBalance(personId).lent < value) { alert("Repayment is greater than this person's outstanding amount owed to you."); return; }
-    if (type === "repayment_out" && personBalance(personId).borrowed < value) { alert("Repayment is greater than your outstanding amount owed to this person."); return; }
-    if (type === "shared_repayment_in" && sharedOwed(personId) < value) { alert("Recovery is greater than this person’s outstanding shared expenses."); return; }
-    if ((type==="expense"||type==="shared_expense") && sourceEntryId) { const batch=moneyBatches.find(x=>x.source.id===sourceEntryId); if(!batch || value>batch.remaining+0.001) { alert("This expense is greater than the selected money batch’s remaining balance."); return; } }
+    const prior = editingEntryId ? entries.find(item=>item.id===editingEntryId) : undefined;
+    const balanceWithoutPrior = (kind: EntryType, id: string) => entries.filter(item=>item.id!==editingEntryId && item.personId===id).reduce((sum,item)=>sum + (item.type===kind ? item.amount : item.type===(kind==="lent"?"repayment_in":"repayment_out") ? -item.amount : 0),0);
+    if (type === "repayment_in" && balanceWithoutPrior("lent",personId) < value) { alert("Repayment exceeds the outstanding amount."); return; }
+    if (type === "repayment_out" && balanceWithoutPrior("borrowed",personId) < value) { alert("Repayment exceeds the outstanding amount."); return; }
+    if (type === "shared_repayment_in" && entries.filter(item=>item.id!==editingEntryId).reduce((sum,item)=>sum+(item.type==="shared_expense"?(item.shares??[]).filter(x=>x.personId===personId).reduce((n,x)=>n+x.amount,0):0)-(item.type==="shared_repayment_in"&&item.personId===personId?item.amount:0),0) < value) { alert("Recovery exceeds outstanding shared expenses."); return; }
+    if ((type==="expense"||type==="shared_expense") && sourceEntryId) { const batch=moneyBatches.find(x=>x.source.id===sourceEntryId); const remaining=(batch?.remaining ?? 0)+(prior?.sourceEntryId===sourceEntryId ? prior.amount : 0); if(!batch || value>remaining+0.001) { alert("This expense exceeds the selected batch balance."); return; } }
     if (type === "shared_expense") { if (!shares.length || shares.some(x=>!x.personId || !Number.isFinite(x.amount) || x.amount<=0)) { alert("Add at least one person and a valid share amount."); return; } if (new Set(shares.map(x=>x.personId)).size !== shares.length) { alert("Each person can appear only once in a shared expense."); return; } if (shares.reduce((sum,x)=>sum+x.amount,0) > value + 0.001) { alert("The shared amounts cannot exceed the total expense."); return; } }
     const attachments: AttachmentMeta[] = attachmentFiles.map(file=>({id:crypto.randomUUID(),name:file.name,type:file.type || "application/octet-stream",size:file.size}));
     try { for(let i=0;i<attachmentFiles.length;i++) await putAttachment(attachmentFiles[i],attachments[i].id); }
     catch { alert("Could not save the attachment. Please try again."); return; }
-    const entry: Entry = { id: crypto.randomUUID(), title:title.trim(), category, type, amount:value, date, personId:needsPerson ? personId : undefined, note:note.trim() || undefined, attachments:attachments.length ? attachments : undefined, shares:type==="shared_expense" ? shares : undefined, sourceEntryId:(type==="expense"||type==="shared_expense") && sourceEntryId ? sourceEntryId : undefined, sourceEntryName:(type==="expense"||type==="shared_expense") && sourceEntryId ? moneyBatches.find(x=>x.source.id===sourceEntryId)?.source.title : undefined };
-    saveEntries([entry,...entries]); resetEntry(); setShowEntry(false);
+    const entry: Entry = { id: editingEntryId ?? crypto.randomUUID(), title:title.trim(), category, type, amount:value, date, personId:needsPerson ? personId : undefined, note:note.trim() || undefined, attachments:[...(prior?.attachments ?? []),...attachments], shares:type==="shared_expense" ? shares : undefined, sourceEntryId:(type==="expense"||type==="shared_expense") && sourceEntryId ? sourceEntryId : undefined, sourceEntryName:(type==="expense"||type==="shared_expense") && sourceEntryId ? moneyBatches.find(x=>x.source.id===sourceEntryId)?.source.title : undefined };
+    saveEntries(editingEntryId ? entries.map(item=>item.id===editingEntryId?entry:item) : [entry,...entries]); resetEntry(); setShowEntry(false);
   }
   function addPerson(e: React.FormEvent) {
     e.preventDefault(); if (!personName.trim()) return;
