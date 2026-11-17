@@ -164,3 +164,70 @@ footer span{color:#72d7c6}
  .toolbar{background:#101321}
  .ledger-actions{background:#1b2032}
 }
+
+
+/* KHATAFLOW — minimalist monochrome theme */
+:root{color-scheme:light;background:#fff;color:#111}
+body{background:#fff;color:#111}
+.topbar{border-color:#e8e8e8}
+.brand{color:#111}
+.brand small,.muted,.welcome .muted,.page-title .muted{color:#777}
+.brand-mark{background:#111;color:#fff;box-shadow:none;border-radius:11px}
+.nav-tabs{border-color:#e8e8e8;background:#fff}
+.nav-tabs button{color:#777}
+.nav-tabs button.active{background:#111;color:#fff;box-shadow:none}
+.nav-tabs button span{background:#333;color:#fff}
+.eyebrow,.text-btn{color:#555}
+.welcome h1 span,.page-title h1 span{color:#777}
+.date-chip,.icon-btn,.filter-btn{border-color:#e5e5e5;background:#fff;color:#222}
+.balance-card{background:#111;border:1px solid #111;color:#fff}
+.balance-card .card-label,.balance-card p{color:#d0d0d0}
+.balance-orb{border-color:#ffffff18;box-shadow:0 0 0 18px #ffffff08,0 0 0 38px #ffffff05}
+.stat-card,.stat-card:nth-child(2),.stat-card:nth-child(3){background:#fff;border:1px solid #e8e8e8}
+.stat-card>p,.stat-card small{color:#777}
+.stat-card>strong{color:#111}
+.income,.expense,.loan,.debt{background:#f1f1f1;color:#222}
+.section-head h2,.modal h2{color:#111}
+.primary-btn{background:#111;color:#fff;box-shadow:none}
+.primary-btn:hover{background:#333}
+.quick-grid button{background:#fff;border:1px solid #e7e7e7;color:#111}
+.quick-grid button:hover,.person-card:hover{background:#f7f7f7;border-color:#bdbdbd}
+.quick-grid button:nth-child(n) .quick-icon{background:#f0f0f0;color:#222}
+.quick-grid small{color:#777}
+.entries{border-color:#e7e7e7;background:#fff}
+.entry{border-color:#ededed}
+.entry-info small,.coming p{color:#777}
+.positive,.negative{color:#222}
+.coming{border-color:#ddd}
+.coming-icon{background:#f1f1f1;color:#222}
+.search{background:#fff;border-color:#e5e5e5;color:#777}
+.search input{color:#111}
+.person-card{background:#fff;border-color:#e7e7e7;color:#111}
+.avatar{background:#eee;color:#111}
+.person-main small,.person-balances small{color:#777}
+.person-balances b{color:#222}
+.empty-panel{border-color:#ddd;color:#777}
+.empty-panel b{color:#111}
+.modal{background:#fff;border-color:#e5e5e5;box-shadow:0 20px 80px #0002}
+.modal label{color:#444}
+.modal label input,.modal label select,.share-row input,.share-row select{background:#fff;border-color:#ddd;color:#111}
+.modal label input:focus,.modal label select:focus,.share-row input:focus,.share-row select:focus{border-color:#555;box-shadow:0 0 0 3px #0000000d}
+.ledger-totals div{background:#f8f8f8;border-color:#e7e7e7}
+.ledger-totals small{color:#777}
+.secondary-btn{background:#f4f4f4;border-color:#ddd;color:#111}
+.share-editor{background:#fafafa;border-color:#e5e5e5}
+.share-editor-head b{color:#111}
+.share-editor-head small{color:#777}
+.share-total{color:#333}
+.attachment-links button{background:#f5f5f5;border-color:#ddd;color:#222}
+.selected-files span{background:#f8f8f8;border-color:#e5e5e5;color:#333}
+.selected-files button{color:#444}
+.form-hint{color:#555}
+footer{color:#999}
+footer span{color:#333}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #555;outline-offset:2px}
+@media(max-width:650px){
+ .nav-tabs{background:#ffffffF2;border-color:#e5e5e5;box-shadow:0 -4px 18px #00000008}
+ .toolbar{background:#fff}
+ .ledger-actions{background:#fff}
+}
