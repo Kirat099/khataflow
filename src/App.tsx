@@ -79,7 +79,7 @@ export default function App() {
   const personEntries = selectedPerson ? filtered.filter(e=>e.personId===selectedPerson || (e.shares ?? []).some(x=>x.personId===selectedPerson)) : [];
   const matchingExpenses = filtered.filter(e=>e.type==="expense"||e.type==="shared_expense");
   const pettyCashEntries = matchingExpenses.filter(e=>e.amount<PETTY_CASH_LIMIT);
-  const activityEntries = expenseFilter==="all" ? filtered : matchingExpenses.filter(e=>expenseFilter==="petty" ? e.amount<10000 : e.amount>=PETTY_CASH_LIMIT);
+  const activityEntries = expenseFilter==="all" ? filtered : matchingExpenses.filter(e=>expenseFilter==="petty" ? e.amount<PETTY_CASH_LIMIT : e.amount>=PETTY_CASH_LIMIT);
   const pettyCashTotal = pettyCashEntries.reduce((sum,e)=>sum+e.amount,0);
   const reportEntries = entries.filter(e=>e.date.slice(0,7)===reportMonth);
   const reportTotals = reportEntries.reduce((a,e)=>{ if(e.type==="income") a.income+=e.amount; if(e.type==="expense"||e.type==="shared_expense") a.expense+=e.amount; if(e.type==="lent") a.lent+=e.amount; if(e.type==="borrowed") a.borrowed+=e.amount; if(e.type==="repayment_in") a.repaidIn+=e.amount; if(e.type==="repayment_out") a.repaidOut+=e.amount; a.cash+=signed(e.type)*e.amount; return a; },{income:0,expense:0,lent:0,borrowed:0,repaidIn:0,repaidOut:0,cash:0});
