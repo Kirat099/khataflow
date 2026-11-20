@@ -254,3 +254,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
 /* Transaction edit and delete controls */
 .entry-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}.entry-action{width:32px;height:32px;display:grid;place-items:center;border:1px solid #e7e7e7;border-radius:9px;background:#fff;color:#555;cursor:pointer}.entry-action:hover{background:#f4f4f4;color:#111}@media(max-width:520px){.entry{gap:8px}.entry-actions{gap:4px}.entry-action{width:29px;height:29px}.entry-actions>strong{font-size:13px}}
+
+
+/* Petty cash expense filters */
+.petty-cash-panel{margin:18px 0 20px;padding:16px;border:1px solid #e7e7e7;border-radius:15px;background:#fff}
+.petty-cash-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.petty-cash-heading h2{margin:3px 0 5px;font:700 19px Manrope;color:#111}
+.petty-cash-heading .muted{margin:0;font-size:12px}
+.petty-cash-total{text-align:right;flex-shrink:0;display:grid;gap:4px}
+.petty-cash-total strong{font:700 22px Manrope;color:#111}
+.petty-cash-total small{font-size:10px;color:#777}
+.filter-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.filter-chips button{border:1px solid #e5e5e5;background:#fff;color:#555;border-radius:999px;padding:9px 12px;font:600 11px inherit;cursor:pointer}
+.filter-chips button.selected{background:#111;border-color:#111;color:#fff}
+@media(max-width:520px){.petty-cash-heading{flex-direction:column}.petty-cash-total{text-align:left}.filter-chips{gap:6px}.filter-chips button{padding:9px 10px;font-size:10px}}
